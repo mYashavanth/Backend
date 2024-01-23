@@ -6,7 +6,9 @@ const DataBase = require("./db");
 const cookieParser = require("cookie-parser");
 const notesRouter = require("./Routes/NotesRoutes");
 const userRouter = require("./Routes/UserRoutes");
+const cors = require("cors");
 
+app.use(cors())
 app.use(cookieParser());
 app.use(express.json());
 app.get("/", (req, res) => {
