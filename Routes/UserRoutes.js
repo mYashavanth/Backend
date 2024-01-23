@@ -54,16 +54,16 @@ userRouter.post("/login", async (req, res) => {
             }
           );
           res.cookie("refreshToken", refreshToken, {
-            httpOnly: true,
+            // httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
           });
           res.cookie("authToken", authToken, {
-            httpOnly: true,
+            // httpOnly: true,
             maxAge: 1 * 60 * 60 * 1000,
           });
           res
             .status(200)
-            .send({ msg: "Login Successful", authToken, refreshToken });
+            .send({ msg: "Login Successful"});
         } else {
           res.status(400).send({ msg: "Wrong Credentials" });
         }
