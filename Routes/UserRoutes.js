@@ -58,7 +58,6 @@ userRouter.post("/login", async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
             sameSite: "none",
             secure: true,
-
           });
           res.cookie("authToken", authToken, {
             httpOnly: true,
@@ -66,9 +65,7 @@ userRouter.post("/login", async (req, res) => {
             sameSite: "none",
             secure: true,
           });
-          res
-            .status(200)
-            .send({ msg: "Login Successful"});
+          res.status(200).send({ msg: "Login Successful" });
         } else {
           res.status(400).send({ msg: "Wrong Credentials" });
         }
@@ -81,15 +78,19 @@ userRouter.post("/login", async (req, res) => {
 
 userRouter.get("/logout", async (req, res) => {
   try {
-    const {authToken, refreshToken} = req.cookies;
+    const { authToken, refreshToken } = req.cookies;
     const blacklist = new Blacklist({
       authToken,
-      refreshToken
+      refreshToken,
     });
     await blacklist.save();
-    res.clearCookie("authToken");
-    res.clearCookie("refreshToken");
-    res.status(200).send({ msg: "Logout Successful",blacklist });
+    res.clearCookie("authToken", { maxAge: 0, sameSite: "none", secure: true });
+    res.clearCookie("refreshToken", {
+      maxAge: 0,
+      sameSite: "none",
+      secure: true,
+    });
+    res.status(200).send({ msg: "Logout Successful", blacklist });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
