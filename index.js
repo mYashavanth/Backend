@@ -8,7 +8,7 @@ const notesRouter = require("./Routes/NotesRoutes");
 const userRouter = require("./Routes/UserRoutes");
 const cors = require("cors");
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(cors({ credentials: true, origin: "*" }));
 app.use(cookieParser());
 app.use(express.json());
 app.get("/", (req, res) => {
