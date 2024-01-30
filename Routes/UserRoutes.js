@@ -54,14 +54,17 @@ userRouter.post("/login", async (req, res) => {
             }
           );
           res.cookie("refreshToken", refreshToken, {
-            // httpOnly: true,
+            httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            domain: "localhost",
+            sameSite: "none",
+            secure: true,
+
           });
           res.cookie("authToken", authToken, {
-            // httpOnly: true,
+            httpOnly: true,
             maxAge: 1 * 60 * 60 * 1000,
-            domain: "localhost",
+            sameSite: "none",
+            secure: true,
           });
           res
             .status(200)

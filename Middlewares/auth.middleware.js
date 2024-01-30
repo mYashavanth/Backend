@@ -5,6 +5,7 @@ const auth = async (req, res, next) => {
   const { refreshToken, authToken } = req.cookies;
   // console.log({ refreshToken, authToken });
   const blacklistData = await Blacklist.findOne({ refreshToken, authToken });
+  
   if (blacklistData) {
     res.send({ message: "Not Authorized" });
   } else {
@@ -32,7 +33,7 @@ const auth = async (req, res, next) => {
               });
               next();
             } else {
-              res.send({ message: "Not Authorized", error: err });
+              throw new Error({ error: "Not Authorized" });
             }
           });
         }
