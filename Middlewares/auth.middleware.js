@@ -30,6 +30,8 @@ const auth = async (req, res, next) => {
               res.cookie("authToken", newToken, {
                 httpOnly: true,
                 maxAge: 1 * 60 * 60 * 1000,
+                sameSite: "none",
+                secure: true,
               });
               next();
             } else {
